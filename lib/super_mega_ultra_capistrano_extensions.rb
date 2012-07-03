@@ -12,7 +12,7 @@ module Capistrano
         options[:env][:environment] ? ". #{options[:env][:environment]}; " : '' +
         options[:env].reject do |key, value|
           key == :environment
-        end.inject("#{command} env") do |string, (name, value)|
+        end.inject("env") do |string, (name, value)|
           value = value.to_s.gsub(/[ "]/) { |m| "\\#{m}" }
           string << " #{name}=#{value}"
         end
