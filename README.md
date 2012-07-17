@@ -1,6 +1,9 @@
-# SuperMegaUltraCapistranoExtensions
+#  Super Mega Ultra Capistrano Extensions
 
-TODO: Write a gem description
+Deploying should be easy, 1,000 configuration options having to be set
+for each application sucks. This gem sets the defaults that Everyday
+Hero use on a per application basis and allows an application to
+override as required.
 
 ## Installation
 
@@ -15,10 +18,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install super_mega_ultra_capistrano_extensions
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Contributing
 
