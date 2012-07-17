@@ -1,5 +1,6 @@
 require "super_mega_ultra_capistrano_extensions/version"
-# require "capistrano/command"
+
+require "super_mega_ultra_capistrano_extensions/recipes/unicorn"
 
 module Capistrano
   class Command
