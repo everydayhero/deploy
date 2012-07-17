@@ -2,6 +2,7 @@ require "super_mega_ultra_capistrano_extensions/version"
 
 require "super_mega_ultra_capistrano_extensions/recipes/config"
 require "super_mega_ultra_capistrano_extensions/recipes/unicorn"
+require "super_mega_ultra_capistrano_extensions/recipes/deploy"
 
 module Capistrano
   class Command

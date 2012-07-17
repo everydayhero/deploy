@@ -1,7 +1,7 @@
 Capistrano::Configuration.instance(:must_exist).load do
-  namespace :unicorn do
-    set :unicorn_init_script, fetch(:unicorn_init_script, "/etc/init.d/#{application}")
+  set :unicorn_init_script, fetch(:unicorn_init_script) { "/etc/init.d/#{application}" }
 
+  namespace :unicorn do
     desc <<-DESC
       Start the unicorn workers. This operation is able to be called \
       even if there are currently active workers. It will fail \
