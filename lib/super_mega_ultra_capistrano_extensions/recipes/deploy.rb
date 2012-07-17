@@ -14,26 +14,26 @@ Capistrano::Configuration.instance(:must_exist).load do
   namespace :deploy do
     desc <<-DESC
       Start the web application. This task currently:
-        * starts unicorn
+        * starts app server
     DESC
     task :start do
-      unicorn.start
+      app_server.start
     end
 
     desc <<-DESC
       Stop the web application. This task currently:
-        * stops unicorn
+        * stops app server
     DESC
     task :stop do
-      unicorn.stop
+      app_server.stop
     end
 
     desc <<-DESC
       Restart the web application. This task currently:
-        * restarts unicorn
+        * restarts app server
     DESC
     task :restart do
-      unicorn.restart
+      app_server.restart
     end
   end
 end
