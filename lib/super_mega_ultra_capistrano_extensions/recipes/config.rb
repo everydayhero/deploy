@@ -8,7 +8,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       Creates a symlink between the unversioned application \
       configuration files in our shared directory and our application.
     DESC
-    task :symlink, :except {:no_release => true} do
+    task :symlink, :except => {:no_release => true} do
       config_files.each do |file|
         run "ln -nfs #{shared_path}/config/#{file} #{latest_release}/config/#{file}"
       end
