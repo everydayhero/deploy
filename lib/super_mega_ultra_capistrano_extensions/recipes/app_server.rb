@@ -7,7 +7,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       app server is currently running. It will fail gracefully.
     DESC
     task :start, :roles => :web do
-      run "#{app_server_init_script} start"
+      sudo "#{app_server_init_script} start"
     end
 
     desc <<-DESC
@@ -15,7 +15,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       app server is stopped. It will fail gracefully.
     DESC
     task :stop, :roles => :web do
-      run "#{app_server_init_script} stop"
+      sudo "#{app_server_init_script} stop"
     end
 
     desc <<-DESC
@@ -23,7 +23,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       if the app server is currently up or down.
     DESC
     task :restart, :roles => :web do
-      run "#{app_server_init_script} restart"
+      sudo "#{app_server_init_script} restart"
     end
   end
 end
