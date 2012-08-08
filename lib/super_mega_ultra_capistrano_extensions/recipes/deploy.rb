@@ -11,6 +11,11 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :rake,                "bundle exec rake"
   set :config_files,        fetch(:config_files) { [] }
   set :job_runner?,         fetch(:job_runner, false)
+  set :migrate?,            fetch(:run_migrations, false)
+  set :group_writable,      false
+
+  after "deploy:update_code", "deploy:migrate" if migrate?
+  after "deploy:restart", "deploy:cleanup"
 
   namespace :deploy do
     desc <<-DESC
