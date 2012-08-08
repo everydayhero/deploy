@@ -9,9 +9,11 @@ Capistrano::Configuration.instance(:must_exist).load do
       configuration files in our shared directory and our application.
     DESC
     task :symlink, :except => {:no_release => true} do
-      config_files.each do |file|
-        run "ln -nfs #{shared_path}/config/#{file} #{latest_release}/config/#{file}"
+      symlinks = config_files.inject([]) do |commands, file|
+        commands << "ln -nfs #{shared_path}/config/#{file} #{latest_release}/config/#{file}"
       end
+
+      run symlinks.join(' && ')
     end
   end
 end
