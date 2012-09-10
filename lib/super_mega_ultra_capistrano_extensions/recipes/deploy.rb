@@ -13,7 +13,6 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :job_runner?,         fetch(:job_runner)     { false }
   set :branch,              fetch(:branch)         { 'master' }
   set :run_migrations,      fetch(:run_migrations) { false }
-  set :run_cleanup,         fetch(:run_cleanup)    { false }
   set :group_writable,      false
   set :server_mappings,     {
     'development' => fetch(:development_servers),
@@ -28,7 +27,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :environment,         fetch(:environment, 'development')
   set :servers,             Array(server_mappings[environment])
 
-  after "deploy:restart", "deploy:cleanup" if run_cleanup
+  after "deploy:restart", "deploy:cleanup"
 
   role :web, *servers
   role :app, *servers
