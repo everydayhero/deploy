@@ -30,7 +30,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   after "deploy:restart", "deploy:cleanup"
 
-  role assets_role, servers.first
+  role assets_role, servers.first if assets_role
   role :web,        *servers
   role :app,        *servers
   role :db,         servers.first, :primary => true
