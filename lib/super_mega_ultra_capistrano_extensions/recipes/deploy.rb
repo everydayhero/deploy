@@ -26,7 +26,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   }
   set :environment,         fetch(:environment, 'development')
   set :servers,             Array(server_mappings[environment])
-  set :assets_role,         fetch(:assets_role) { [:assets] }
+  set :assets_role,         fetch(:assets_role) { :assets }
 
   after "deploy:restart", "deploy:cleanup"
 
