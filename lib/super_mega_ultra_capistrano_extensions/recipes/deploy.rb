@@ -31,9 +31,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   role :web, *servers
   role :app, *servers
-  role :db,  :primary => true do |role|
-    servers
-  end
+  role :db,  servers.first, :primary => true
 
   namespace :deploy do
     desc <<-DESC
