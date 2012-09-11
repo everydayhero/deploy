@@ -26,12 +26,16 @@ Capistrano::Configuration.instance(:must_exist).load do
   }
   set :environment,         fetch(:environment, 'development')
   set :servers,             Array(server_mappings[environment])
+  set :assets_role,         fetch(:assets_role) { [:assets] }
 
   after "deploy:restart", "deploy:cleanup"
 
-  role :web, *servers
-  role :app, *servers
-  role :db,  servers.first, :primary => true
+  role assets_role, servers.first
+  role :web,        *servers
+  role :app,        *servers
+  role :db,         servers.first, :primary => true
+
+  load 'deploy/assets' if assets_role
 
   namespace :deploy do
     desc <<-DESC
@@ -82,7 +86,7 @@ Capistrano::Configuration.instance(:must_exist).load do
         * starts app server
         * starts job runner (if set)
     DESC
-    task :start do
+    task :start, :roles => :app do
       app_server.start
       job_runner.start if job_runner?
     end
@@ -92,7 +96,7 @@ Capistrano::Configuration.instance(:must_exist).load do
         * stops app server
         * stops job runner (if set)
     DESC
-    task :stop do
+    task :stop, :roles => :app do
       app_server.stop
       job_runner.stop if job_runner?
     end
@@ -102,7 +106,7 @@ Capistrano::Configuration.instance(:must_exist).load do
         * restarts app server
         * restarts job runner (if set)
     DESC
-    task :restart do
+    task :restart, :roles => :app do
       app_server.restart
       job_runner.restart if job_runner?
     end
