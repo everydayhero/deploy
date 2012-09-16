@@ -1,4 +1,4 @@
-#  Super Mega Ultra Capistrano Extensions
+#  Deploy
 
 Deploying should be easy, 1,000 configuration options having to be set
 for each application sucks. This gem sets the defaults that Everyday
@@ -9,7 +9,7 @@ override as required.
 
 Add this line to your application's Gemfile:
 
-    gem 'super_mega_ultra_capistrano_extensions'
+    gem 'deploy'
 
 And then execute:
 
@@ -17,7 +17,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install super_mega_ultra_capistrano_extensions
+    $ gem install deploy
 
 ## Contributing
 

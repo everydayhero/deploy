@@ -1,9 +1,10 @@
-require "super_mega_ultra_capistrano_extensions/version"
+require "deploy/version"
 
-require "super_mega_ultra_capistrano_extensions/recipes/app_server"
-require "super_mega_ultra_capistrano_extensions/recipes/config"
-require "super_mega_ultra_capistrano_extensions/recipes/deploy"
-require "super_mega_ultra_capistrano_extensions/recipes/job_runner"
+require "deploy/recipes/app"
+require "deploy/recipes/app_server"
+require "deploy/recipes/config"
+require "deploy/recipes/deploy"
+require "deploy/recipes/job_runner"
 
 module Capistrano
   class Command
