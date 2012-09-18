@@ -12,7 +12,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :config_files,        fetch(:config_files)   { Array.new }
   set :job_runner?,         fetch(:job_runner)     { false }
   set :branch,              fetch(:branch)         { 'master' }
-  set :run_migrations,      fetch(:run_migrations) { false }
+  set :run_migrations?,     fetch(:run_migrations) { false }
   set :group_writable,      false
   set :server_mappings,     {
     'development' => fetch(:development_servers),
@@ -29,6 +29,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :assets_role,         fetch(:assets_role) { :assets }
 
   after "deploy:restart", "deploy:cleanup"
+  after "deploy:finalize_update", "deploy:migrate" if run_migrations?
 
   role assets_role, servers.first if assets_role
   role :web,        *servers
@@ -38,25 +39,6 @@ Capistrano::Configuration.instance(:must_exist).load do
   load 'deploy/assets' if assets_role
 
   namespace :deploy do
-    desc <<-DESC
-      Override the default capistrano setup task to either:
-        * setup the application if no current directory
-        * deploy and run migrations if migrations enabled
-        * deploy without migrations
-    DESC
-    task :default do
-      if latest_release
-        if run_migrations
-          migrations
-        else
-          update
-          restart
-        end
-      else
-        setup
-      end
-    end
-
     desc <<-DESC
       Override the default capistrano setup because folder structure \
       is taken care of by puppet. This task currently:
