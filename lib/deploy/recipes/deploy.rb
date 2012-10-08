@@ -26,17 +26,15 @@ Capistrano::Configuration.instance(:must_exist).load do
   }
   set :environment,         fetch(:environment, 'development')
   set :servers,             Array(server_mappings[environment])
-  set :assets_role,         fetch(:assets_role) { :assets }
 
   after "deploy:restart", "deploy:cleanup"
   after "deploy:finalize_update", "deploy:migrate" if run_migrations?
 
-  role assets_role, servers.first if assets_role
   role :web,        *servers
   role :app,        *servers
   role :db,         servers.first, :primary => true
 
-  load 'deploy/assets' if assets_role
+  load 'deploy/assets'
 
   namespace :deploy do
     desc <<-DESC
