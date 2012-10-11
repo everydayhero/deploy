@@ -5,6 +5,7 @@ require "deploy/recipes/app_server"
 require "deploy/recipes/config"
 require "deploy/recipes/deploy"
 require "deploy/recipes/job_runner"
+require "deploy/recipes/subscribe"
 
 module Capistrano
   class Command

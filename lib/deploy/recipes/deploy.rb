@@ -11,6 +11,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :rake,                "bundle exec rake"
   set :config_files,        fetch(:config_files)   { Array.new }
   set :job_runner?,         fetch(:job_runner)     { false }
+  set :subscribe?,          fetch(:subscribe)      { false }
   set :branch,              fetch(:branch)         { 'master' }
   set :run_migrations?,     fetch(:run_migrations) { false }
   set :group_writable,      false
@@ -30,6 +31,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   after "deploy:restart", "deploy:cleanup"
   after "deploy:finalize_update", "deploy:migrate" if run_migrations?
 
+  role :subscribe,  servers.first
   role :web,        *servers
   role :app,        *servers
   role :db,         servers.first, :primary => true
@@ -69,6 +71,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     task :start, :roles => :app do
       app_server.start
       job_runner.start if job_runner?
+      subscribe.start if subscribe?
     end
 
     desc <<-DESC
@@ -79,6 +82,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     task :stop, :roles => :app do
       app_server.stop
       job_runner.stop if job_runner?
+      subscribe.stop if subscribe?
     end
 
     desc <<-DESC
@@ -89,6 +93,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     task :restart, :roles => :app do
       app_server.restart
       job_runner.restart if job_runner?
+      subscribe.restart if subscribe?
     end
 
     desc <<-DESC
