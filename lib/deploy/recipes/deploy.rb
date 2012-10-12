@@ -36,7 +36,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   role :app,        *servers
   role :db,         servers.first, :primary => true
 
-  load 'deploy/assets'
+  load 'deploy/assets' if fetch(:asset_pipeline) { true }
 
   namespace :deploy do
     desc <<-DESC
