@@ -38,6 +38,8 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   load 'deploy/assets' if fetch(:asset_pipeline) { true }
 
+  on :start, 'deploy:confirmation', only: 'deploy'
+
   namespace :deploy do
     desc <<-DESC
       Override the default capistrano setup because folder structure \
@@ -103,6 +105,26 @@ Capistrano::Configuration.instance(:must_exist).load do
     DESC
     task :load_schema, :roles => :db, :only => {:primary => true} do
       run "cd #{latest_release} && RAILS_ENV=#{rails_env} #{rake} db:schema:load"
+    end
+
+    desc 'Do you REALLY REALLY want to deploy?'
+    task :confirmation do
+      Capistrano::CLI.ui.tap do |ui|
+        ui.say "\n"
+        ui.say '********************** \m/ DEPLOYING \m/ ***********************'
+        ui.say "APP: #{application}"
+        ui.say "BRANCH: #{branch}"
+        ui.say "ENV: #{environment}"
+        ui.say "\n"
+      end
+      unless Capistrano::CLI.ui.agree("What say you? (y/n)")
+        Capistrano::CLI.ui.say "Fine. I didn't want to play with you anyway."
+        abort
+      end
+      Capistrano::CLI.ui.tap do |ui|
+        ui.say '*********************** GIGGITY GIGGITY ************************'
+        ui.say "\n"
+      end
     end
   end
 end
