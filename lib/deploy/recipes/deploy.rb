@@ -25,6 +25,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   after "deploy:restart", "deploy:cleanup"
   after "deploy:finalize_update", "deploy:migrate" if run_migrations?
+  on :start, 'deploy:confirmation', only: 'deploy'
 
   role :subscribe,  servers.first
   role :web,        *servers
@@ -32,8 +33,6 @@ Capistrano::Configuration.instance(:must_exist).load do
   role :db,         servers.first, :primary => true
 
   load 'deploy/assets' if fetch(:asset_pipeline) { true }
-
-  on :start, 'deploy:confirmation', only: 'deploy'
 
   namespace :deploy do
     desc <<-DESC
