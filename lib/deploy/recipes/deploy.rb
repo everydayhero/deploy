@@ -120,5 +120,12 @@ Capistrano::Configuration.instance(:must_exist).load do
         ui.say "\n"
       end
     end
+
+    desc 'Print the current revision'
+    task :revision do
+      Capistrano::CLI.ui.tap do |ui|
+        ui.say "COMMIT: #{current_revision}"
+      end
+    end
   end
 end
