@@ -17,6 +17,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :group_writable,      false
   set :server_mappings,     {
     'development' => fetch(:development_servers),
+    'sandbox'     => fetch(:sandbox_servers),
     'staging'     => fetch(:staging_servers),
     'production'  => fetch(:production_servers)
   }
