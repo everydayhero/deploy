@@ -26,7 +26,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   after "deploy:restart", "deploy:cleanup"
   after "deploy:finalize_update", "deploy:migrate" if run_migrations?
-  on :start, 'deploy:confirmation', only: 'deploy' unless fetch(:skip_confirmation) { false }
+  on :start, 'deploy:confirmation', :only => 'deploy' unless fetch(:skip_confirmation) { false }
 
   role :subscribe,  servers.first
   role :web,        *servers
