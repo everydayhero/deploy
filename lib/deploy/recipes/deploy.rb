@@ -15,12 +15,14 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :branch,              fetch(:branch)         { 'master' }
   set :run_migrations?,     fetch(:run_migrations) { false }
   set :group_writable,      false
-  set :server_mappings,     {
-    'development' => fetch(:development_servers),
-    'sandbox'     => fetch(:sandbox_servers),
-    'staging'     => fetch(:staging_servers),
-    'production'  => fetch(:production_servers)
-  }
+  set :server_mappings,     fetch(:server_mappings) {
+                              {
+                                'development' => fetch(:development_servers),
+                                'sandbox'     => fetch(:sandbox_servers),
+                                'staging'     => fetch(:staging_servers),
+                                'production'  => fetch(:production_servers)
+                              }
+                            }
   set :environment,         fetch(:environment, 'development')
   set :servers,             Array(server_mappings[environment])
 
