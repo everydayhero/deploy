@@ -14,5 +14,5 @@ Gem::Specification.new do |gem|
   gem.name          = "deploy"
   gem.require_paths = ["lib"]
   gem.version       = Deploy::VERSION
-  gem.add_dependency 'capistrano', '~> 2.12.0'
+  gem.add_dependency 'capistrano', '~> 2.15.5'
 end
