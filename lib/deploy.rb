@@ -5,6 +5,8 @@ require "deploy/recipes/app_server"
 require "deploy/recipes/config"
 require "deploy/recipes/deploy"
 require "deploy/recipes/job_runner"
+require "deploy/recipes/maintenance"
+require "deploy/recipes/newrelic"
 require "deploy/recipes/subscribe"
 
 module Capistrano
