@@ -7,7 +7,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   namespace :newrelic do
     desc 'Notify NewRelic of a new deploy'
-    task :deploy, roles: [:app], except: {no_release: true} do
+    task :deploy, :roles => [:app], :except => {:no_release => true} do
       environment   = fetch(:environment)
       app_name      = "#{fetch(:application)} (#{environment})"
       user          = ENV.fetch 'USER', fetch(:user)
