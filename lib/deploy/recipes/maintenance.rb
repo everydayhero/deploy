@@ -10,7 +10,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
           $ cap deploy:web:disable
       DESC
-      task :disable, roles: :web, except: {no_release: true} do
+      task :disable, :roles => :web, :except => {:no_release => true} do
         sudo "#{maintenance_init_script} start"
       end
 
@@ -19,7 +19,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
           $ cap deploy:web:enable
       DESC
-      task :enable, roles: :web, except: {no_release: true} do
+      task :enable, :roles => :web, :except => {:no_release => true} do
         sudo "#{maintenance_init_script} stop"
       end
     end
