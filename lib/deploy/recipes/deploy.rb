@@ -4,7 +4,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :default_environment, {:environment => "#{shared_path}/config/environment"}
   set :deploy_via,          :remote_cache
   set :keep_releases,       2
-  set :port,                1022
+  set :port,                fetch(:port)           { 1022 }
   set :scm,                 :git
   set :user,                'edhdev'
   set :use_sudo,            false
